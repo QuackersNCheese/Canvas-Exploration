@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 01</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 01</h1>
+    <canvas id="canvas" style="background-color: white;" height="320" width="480"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // fill screen with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // draw a red, blue, green filled squares
+      ctx.fillStyle = 'rgba(200, 0, 0, 0.5)';
+      ctx.fillRect(10, 10, 50, 50);
+      ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+      ctx.fillRect(30, 30, 50, 50);
+      ctx.fillStyle = 'rgba(0, 200, 0, 0.25)';
+      ctx.fillRect(50, 50, 50, 50);
+      // draw a gray lined square
+      ctx.strokeStyle = 'rgba(200, 200, 200, 1)';
+      ctx.strokeRect(70, 70, 50, 50);
+
+      // draw a yellow filled square with a hole in it
+      ctx.fillStyle = 'rgb(255, 165, 0)';
+      ctx.fillRect(100, 100, 70, 110);
+      ctx.clearRect(120, 120, 30, 30);
+
+      // some context properties
+      ctx.clearRect(210, 10, 250, 150);
+      ctx.shadowColor = "#d53";
+      ctx.shadowBlur = 20;
+      ctx.lineJoin = "bevel"; // miter, round
+      ctx.lineWidth = 15;
+      ctx.strokeStyle = "#38f";
+      ctx.strokeRect(250, 30, 160, 90);
+
+      // draw a path with lines and fill it
+      ctx.beginPath();
+      ctx.moveTo(240, 160);
+      ctx.lineTo(400, 160);
+      ctx.lineTo(280, 300);
+      ctx.closePath();
+      ctx.lineJoin="round";
+      ctx.lineWidth = 8;
+      ctx.stroke();
+      ctx.fillStyle = 'rgb(255, 127, 0)';
+      ctx.fill();
+
+    </script>
+  </body>   
+</html>

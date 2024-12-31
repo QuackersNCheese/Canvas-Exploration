@@ -18,37 +18,24 @@
     
   <canvas id="tutorial" height="320" width="480" alt="introductory drawing"></canvas>
     <h2>Setting Up</h2>
-    <p>The HTML document doesn't need much more than a canvas element and links to 
-      CSS and JavaScript. I adjust the CSS file as I write in the HTML file when I 
-      want to make it look good. The JavaScript file is where all of the programmatic
-      drawing occurs. At first, most of the drawing is in a draw function. Running 
-      the draw function happens through the event listener at the bottom of the .js 
-      file.</p>
-    <p>I'm using the <code>getContext()</code> method to get a 2d rendering context 
-      for the drawing surface of the canvas, and then drawing shapes with various 
-      properties as examples. </p>
-    <h2>Rectangles</h2>
-    <p>I'm using the
-      <code>fillStyle</code> property to set the color of the fill, and the
-      <code>fillRect()</code> method to draw a filled rectangle on the canvas. I'm
-      using the <code>strokeStyle</code> property to set the color of the stroke, and
-      the <code>strokeRect()</code> method to draw a rectangle outline on the canvas.</p>
-      <p>I'm using the <code>clearRect()</code> method to clear the canvas. I'm using the
-      <code>beginPath()</code> method to begin a path, the <code>moveTo()</code> method
-      to move the starting point of a new sub-path to the (x, y) coordinates, the
-      <code>lineTo()</code> method to add a straight line to the current sub-path, the
-      <code>stroke()</code> method to draw the path, and the <code>fill()</code> method
-      to fill the path. I'm using the <code>arc()</code> method to create an arc, the
-      <code>fillText()</code> method to draw filled text on the canvas, and the
-      <code>strokeText()</code> method to draw outlined text on the canvas. I'm using
-      the <code>drawImage()</code> method to draw an image on the canvas. I'm using the
-      <code>createLinearGradient()</code> method to create a linear gradient, the
-      <code>createRadialGradient()</code> method to create a radial gradient, and the
-      <code>createPattern()</code> method to create a pattern. I'm using the
-      <code>shadowColor</code> property to set the color of the shadow, the
-      <code>shadowBlur</code> property to set the blur level of the shadow, the
+    <p>The HTML document doesn't need much more than a canvas element and JavaScript. 
+      The code below is just about the simplest amount of code to get started. Then,
+      it's just a matter of drawing on it.</p>
+<pre>HTML
+<hr>
+&lt;canvas id="draw_pad"&gt;&lt;/canvas&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;
 
-  </p>   
+
+script.js
+<hr>
+const canvas = document.getElementById("draw_pad");
+const ctx = canvas.getContext("2d");
+
+// drawing code here
+</pre>
+    <h2>Drawing objects</h2>
+
 
   <script src="tutorial_canvas.js"></script>
   </body>
