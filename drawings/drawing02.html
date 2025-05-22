@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 02</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 02</h1>
+    <canvas id="canvas" style="background-color: white;" height=480 width=480></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // fill screen with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+      for (let i = 0; i <= canvas.height / 2; i += 10) {
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 - i, canvas.height);
+        ctx.lineTo(0, canvas.height - i);
+        ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height / 2 - i);
+        ctx.lineTo(i, 0);
+        ctx.strokeStyle = 'rgba(0, 255, 0, 1)';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 + i, 0);
+        ctx.lineTo(canvas.width, i );
+        ctx.strokeStyle = 'rgba(0, 0, 255, 1)';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width, canvas.height / 2 + i);
+        ctx.lineTo(canvas.width - i, canvas.height);
+        ctx.strokeStyle = 'rgba(255, 0, 255, 1)';
+        ctx.stroke();
+      }
+    </script>
+  </body>   
+</html>

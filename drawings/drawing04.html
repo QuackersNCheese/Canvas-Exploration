@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 04</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 04</h1>
+    <canvas id="canvas" style="background-color: white;" height=360 width=720></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // fill screen with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i <= canvas.width; i += 1) {
+        ctx.beginPath();
+        ctx.moveTo(i, i);
+        ctx.lineTo(i, canvas.width - i);
+        ctx.strokeStyle = `rgba(${ 255 / canvas.width * i}, ${0}, ${canvas.width - 255 / canvas.width * i}, ${1})`;
+        ctx.stroke();
+
+      }
+    </script>
+  </body>   
+</html>

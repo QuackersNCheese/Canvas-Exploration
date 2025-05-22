@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 03</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 03</h1>
+    <canvas id="canvas" style="background-color: white;" height=360 width=360></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // fill screen with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i <= canvas.height / 2; i += 3) {
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 - i, canvas.height);
+        ctx.lineTo(0, canvas.height - i);
+        ctx.strokeStyle = `hsla(${i / 2}, ${100}%, ${50}%, ${1})`;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height / 2 - i);
+        ctx.lineTo(i, 0);
+        ctx.strokeStyle = `hsla(${i / 2 + 90}, ${100}%, ${50}%, ${1})`;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 + i, 0);
+        ctx.lineTo(canvas.width, i);
+        ctx.strokeStyle = `hsla(${i / 2 + 180}, ${100}%, ${50}%, ${1})`;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width, canvas.height / 2 + i);
+        ctx.lineTo(canvas.width - i, canvas.height);
+        ctx.strokeStyle = `hsla(${i / 2 + 270}, ${100}%, ${50}%, ${1})`;
+        ctx.stroke();
+      }
+    </script>
+  </body>   
+</html>
