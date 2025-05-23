@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 07</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 07</h1>
+    <canvas id="canvas" style="background-color: white;" height=240 width=240></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // fill screen with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      async function drawLotus() {
+        for (let i = 0; i <= canvas.height; i += 2) {
+          ctx.beginPath();
+          ctx.moveTo(canvas.width - i, canvas.height);
+          ctx.lineTo(0, canvas.height - i);
+          ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.moveTo(0, canvas.height - i);
+          ctx.lineTo(i, 0);
+          ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(canvas.width, i );
+          ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.moveTo(canvas.width, i);
+          ctx.lineTo(canvas.width - i, canvas.height);
+          ctx.strokeStyle = 'rgba(255, 0, 255, 0.5)';
+          ctx.stroke();
+          await new Promise(resolve => setTimeout(resolve, 10));
+        }
+      }
+      drawLotus();
+    </script>
+  </body>   
+</html>
