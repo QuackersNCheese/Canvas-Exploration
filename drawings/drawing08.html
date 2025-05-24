@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 08</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 08</h1>
+    <canvas id="canvas" style="background-color: white;" height=480 width=480></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // fill screen with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      async function drawLotus() {
+        for (let i = 0; i <= canvas.width; i += 2) {
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(canvas.width - i, canvas.height);
+          ctx.lineTo(0, canvas.height - i);
+          ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.moveTo(0, canvas.height - i);
+          ctx.lineTo(i, 0);
+          ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(canvas.width, i );
+          ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.moveTo(canvas.width, i);
+          ctx.lineTo(canvas.width - i, canvas.height);
+          ctx.strokeStyle = 'rgba(255, 0, 255, 0.5)';
+          ctx.stroke();
+          await new Promise(resolve => setTimeout(resolve, 15));
+        }
+      }
+      drawLotus();
+      
+      async function drawCircularSpectrum() {
+        for(let i = 1; i < 360; i += 2) {
+          ctx.beginPath();
+          ctx.arc(canvas.width / 2, canvas.height / 2, i, 0, 6.283, 0);
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = `hsla(${i}, 100%, 50%, 1)`;
+          ctx.stroke();
+          await new Promise(resolve => setTimeout(resolve, 0.5));
+        }
+      }
+      drawCircularSpectrum();
+    </script>
+  </body>   
+</html>

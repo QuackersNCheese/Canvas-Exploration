@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 09</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 09</h1>
+    <canvas id="canvas" style="background-color: black;border: 2px solid gray;" height="400" width="400"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      function drawAxes() {
+        ctx.setLineDash([2, 3]);
+        ctx.strokeStyle='rgba(255, 255, 255, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height / 2);
+        ctx.lineTo(canvas.width, canvas.height / 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2, 0);
+        ctx.lineTo(canvas.width / 2, canvas.height);
+        ctx.stroke();
+      }
+
+      function drawGrid() {
+        ctx.setLineDash([1, 4]);
+        ctx.strokeStyle='rgba(255, 255, 255, 0.5)';
+        for(let i = 0; i < canvas.width; i += 50) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i, canvas.height);
+          ctx.stroke();
+        }
+        for(let i = 0; i < canvas.height; i += 50) {
+          ctx.beginPath();
+          ctx.moveTo(0, i);
+          ctx.lineTo(canvas.width, i);
+          ctx.stroke();
+        }
+      }
+      
+      drawAxes();
+      drawGrid();
+
+      let tol = 4;
+      for(let x = 0; x <= canvas.width; x += 1) {
+        for(let y = 0; y <= canvas.height; y += 2) {
+          let f = canvas.height / 2 + 100 * Math.sin(6.28 * x / 100); // function to plot
+          if(y > f - tol && y < f + tol) {                        // tolerance
+            ctx.fillStyle = `hsla(190, 100%, 60%, 1)`;
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
