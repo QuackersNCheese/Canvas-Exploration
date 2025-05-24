@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Drawing 10</title>
+  </head>
+  <body style="background-color: #222;color: gray;">
+    <h1>Drawing 10</h1>
+    <canvas id="canvas" style="background-color: black;border: 2px solid gray;" height="400" width="500"></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      let x_mid = canvas.width / 2;
+      let y_mid = canvas.height / 2;
+      
+      function drawAxes() {
+        ctx.setLineDash([2, 3]);
+        ctx.strokeStyle='rgba(255, 255, 255, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(0, y_mid);
+        ctx.lineTo(canvas.width, y_mid);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x_mid, 0);
+        ctx.lineTo(x_mid, canvas.height);
+        ctx.stroke();
+      }
+      
+      function drawGrid(t_div = 50, v_div = 50) {
+        ctx.setLineDash([1, 4]);
+        ctx.strokeStyle='rgba(255, 255, 255, 0.5)';
+        // center out from axes guarantees axis/grid alignment
+        for(let i = 0; i < x_mid; i += t_div) {
+          ctx.beginPath();
+          ctx.moveTo(x_mid + i, 0);
+          ctx.lineTo(x_mid + i, canvas.height);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x_mid - i, 0);
+          ctx.lineTo(x_mid - i, canvas.height);
+          ctx.stroke();
+        }
+        for(let i = 0; i < y_mid; i += v_div) {
+          ctx.beginPath();
+          ctx.moveTo(0, y_mid + i);
+          ctx.lineTo(canvas.width, y_mid + i);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, y_mid - i);
+          ctx.lineTo(canvas.width, y_mid - i);
+          ctx.stroke();
+        }
+      }
+            
+      function plotFunc(f, color='hsla(190, 100%, 60%, 0.5)', tol = 4) {
+        for(let x = 0; x <= canvas.width; x += 1) {
+          for(let y = 0; y <= canvas.height; y += 1) {
+            let func = y_mid - f(x-x_mid);  // function to plot
+            if(y > func - tol && y < func + tol) {  // tolerance
+              ctx.fillStyle = color;
+              ctx.globalAlpha = 0.75;
+              ctx.fillRect(x, y, 1, 1);
+            }
+          }
+        }
+      }
+      
+      drawAxes();
+      drawGrid();
+
+      const g = x => 100 * Math.sin(6.28 * x / 100);
+      plotFunc(g);
+      plotFunc(x=>80*Math.cos(6.28*x/50), 'green', 5);
+      plotFunc(x=>x/2-25, 'red', 1);
+      plotFunc(x=>0.1*x**2, 'goldenrod', 5);
+      plotFunc(x=>Math.abs(x), 'purple', 2);
+      plotFunc(x=>-3*x+32, 'hsl(240, 100%, 75%)');
+    </script>
+  </body>
+</html>
