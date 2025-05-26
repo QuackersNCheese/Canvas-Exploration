@@ -84,8 +84,8 @@ function plotParametric(v, r, resolution = 100, color = 'hsl(190, 100%, 60%)') {
 //plotParametric([t => 25 * t * Math.cos(t), t => 25 * t * Math.sin(t)], [-4 * Math.PI, 4 * Math.PI], 4000, 'dodgerblue');
 //plotParametric([t => 25 * t * Math.cos(t), t => -25 * t * Math.sin(t)], [-4 * Math.PI, 4 * Math.PI], 3000, 'red');
 async function petals() {
-  for(let n = 0; n < 20 * Math.PI; n += 0.001) {
-    plotParametric([t=>200*Math.cos(n*t)*Math.cos(t), t=>200*Math.cos(n*t)*Math.sin(t)], [-2 * Math.PI, 2 * Math.PI], 500, 'cyan');
+  for(let n = 0 ; n < 50; n += 0.001) {
+    plotParametric([t=>200*Math.cos(n*t)*Math.cos(t), t=>200*Math.cos(n*t)*Math.sin(t)], [-2 * Math.PI, 2 * Math.PI], 1000, 'dodgerblue');
     await new Promise(resolve => setTimeout(resolve, 1))
     ctx.fillStyle = 'black';
     ctx.fillRect(0,0,canvas.width,canvas.height);
