@@ -98,21 +98,51 @@ function plot3D(Xmin, Ymin, Xmax, Ymax, colMax, rowMax, x, y, z, theta, phi) {
   return [rows, cols];
 }
 
-function plot3DParametric(v, r, resolution = 100, color = 'hsl(190, 100%, 60%)') {
+function plot3DParametric(v, r, resolution = 100, color = 'hsl(190, 100%, 60%)', theta=0, phi=0) {
   ctx.fillStyle = color;
   [x_func, y_func, z_func] = v;
   for(let t = r[0]; t <= r[1]; t += (r[1] - r[0]) / resolution) {
-    let [rows, cols] = plot3D(-200, -200, 200, 200, canvas.width, canvas.height, x_func(t), y_func(t), z_func(t), 0.05 , 1.3);
-    ctx.fillRect(cols, rows, 1, 1);
-    
+    let [rows, cols] = plot3D(-200, -200, 200, 200, canvas.width, canvas.height, x_func(t), y_func(t), z_func(t), theta, phi);
+    ctx.fillRect(cols, rows, 1, 1);    
   }
 }
-for(let r = 0; r < 200; r += 25) {
-  plot3DParametric([x => r * Math.cos(x), y => r * Math.sin(y), z => 0], [0, 2 * Math.PI], r, 'white');
-}
-plot3DParametric([x => x, y => 0, z => 0], [-200, 200], 100, 'red'); // x axis 
-plot3DParametric([x => 0, y => y, z => 0], [-200, 200], 100, 'green'); // y axis
-plot3DParametric([x => 0, y => 0, z => z], [-200, 200], 100, 'blue'); // z axis
 
+/**********************************************************************************************************/
+function plot3DGrid(theta=0, phi=0) {
+  for(let r = 0; r < 360; r++) {
+    if(r % 50 == 0) plot3DParametric([x => r * Math.cos(x), y => r * Math.sin(y), z => 0], [0, 2 * Math.PI], r, 'white', theta, phi);
+  }
+  plot3DParametric([x => x, y => y, z => 0], [-360, 360], 141, 'white', theta, phi);
+  plot3DParametric([x => x, y => -y, z => 0], [-360, 360], 141, 'white', theta, phi);
+  plot3DParametric([x => x / 2, y => 3**0.5*y/2, z => 0], [-360, 360], 100, 'white', theta, phi);
+  plot3DParametric([x => 3**0.5*x / 2, y => y/2, z => 0], [-360, 360], 100, 'white', theta, phi);
+  plot3DParametric([x => x / 2, y => -(3**0.5*y/2), z => 0], [-360, 360], 100, 'white', theta, phi);
+  plot3DParametric([x => 3**0.5*x / 2, y => -y/2, z => 0], [-360, 360], 100, 'white', theta, phi);
+}
+
+/********************************************************************************/
+function plot3DAxes(theta=0, phi=0) {
+  plot3DParametric([x => x, y => 0, z => 0], [-360, 360], 100, 'red', theta, phi); // x axis 
+  plot3DParametric([x => 0, y => y, z => 0], [-360, 360], 100, 'green', theta, phi); // y axis
+  plot3DParametric([x => 0, y => 0, z => z], [-360, 360], 100, 'blue', theta, phi); // z axis
+}
+
+//plot3DAxes();
+//plot3DGrid();
 // Helix
-plot3DParametric([x => 100 * Math.cos(x), y => 100 * Math.sin(y), z => 2 * z], [-50 * Math.PI, 50 * Math.PI], 40000);
+//plot3DParametric([x => 100 * Math.cos(x), y => 100 * Math.sin(y), z => 5 * z], [-2 * Math.PI, 5 * Math.PI], 1000);
+async function paraboloid() {
+  for(let phi=-2*Math.PI; phi<2*Math.PI; phi += Math.PI / 128) {
+    await new Promise(resolve => setTimeout(resolve, 50))
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    plot3DAxes(-phi, phi*2);
+    plot3DGrid(-phi, phi*2);
+    for(let n = 0; n < 2 * Math.PI; n += Math.PI / 180) {
+      plot3DParametric([t => t * Math.cos(n), t => t * Math.sin(n), t => t*t/64], [-100, 100], 50, 'goldenrod', -phi, phi*2);
+      plot3DParametric([t => t * Math.cos(n), t => t * Math.sin(n), t => t], [-100, 0], 20, 'dodgerblue', -phi, phi*2);
+    }
+  }
+}
+
+paraboloid();
