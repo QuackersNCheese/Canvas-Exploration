@@ -132,6 +132,7 @@ function plot3DAxes(theta=0, phi=0) {
 // Helix
 //plot3DParametric([x => 100 * Math.cos(x), y => 100 * Math.sin(y), z => 5 * z], [-2 * Math.PI, 5 * Math.PI], 1000);
 async function paraboloid() {
+  while(true) {
   for(let phi=-2*Math.PI; phi<2*Math.PI; phi += Math.PI / 128) {
     await new Promise(resolve => setTimeout(resolve, 50))
     ctx.fillStyle = 'black';
@@ -144,5 +145,5 @@ async function paraboloid() {
     }
   }
 }
-
+}
 paraboloid();
