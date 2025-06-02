@@ -142,6 +142,8 @@ async function paraboloid() {
     for(let n = 0; n < 2 * Math.PI; n += Math.PI / 180) {
       plot3DParametric([t => t * Math.cos(n), t => t * Math.sin(n), t => t*t/64], [-100, 100], 50, 'goldenrod', -phi, phi*2);
       plot3DParametric([t => t * Math.cos(n), t => t * Math.sin(n), t => t], [-100, 0], 20, 'dodgerblue', -phi, phi*2);
+      plot3DParametric([t => 150+t * Math.cos(n), t => 150+t * Math.sin(n), t => 50+(3000-t*t)**0.5], [0, 100], 80, 'orangered', -phi, phi*2);
+      plot3DParametric([t => 150+t * Math.cos(n), t => 150+t * Math.sin(n), t => 50-((3000-t*t)**0.5)], [0, 100], 80, 'orangered', -phi, phi*2);
     }
   }
 }
