@@ -28,9 +28,10 @@ function plotFractal(n) {
   
   for(let i = 0; i <= 100000; i++) {
     let pick = Math.floor(Math.random() * n);
-    [x, y] = [x+(points[pick][0] - x) * r[n], y+(points[pick][1] - y) * r[n]]; 
+    [x, y] = [x+(points[pick][0] - x) * r[n], y+(points[pick][1] - y) * r[n]];
+    ctx.fillStyle = `hsla(${Math.round(360 * pick / n)},100%,50%,1)`; 
     ctx.fillRect(x, y, 1, 1);
   }
 }
 
-plotFractal(7);
+plotFractal(9);
