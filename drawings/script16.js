@@ -73,17 +73,17 @@ function plot3DAxes(ep, coi, va) {
 // Plot a 3D coordinate system with some objects and animate a moving perspective (theta, phi)
 /*************************************************************************************************************************************************/
 async function paraboloid() {
-  let dia = 100;
-  let coi = [150, 150, 50];
-  let va = Math.PI/1.5;
+  let dia = 230;
+  let coi = [150,150,50];
+  let va = Math.PI/4;
   
   while(true) {
-      for(let phi=0; phi<2 * Math.PI; phi += Math.PI / 128) {
+      for(let phi=-Math.PI; phi<4 * Math.PI; phi += Math.PI / 128) {
         await new Promise(resolve => setTimeout(resolve, 20))
         ctx.fillStyle = 'black';
         ctx.fillRect(0,0,canvas.width,canvas.height);
         
-        let eyepoint = [dia*Math.cos(phi), dia*Math.sin(phi), 20];
+        let eyepoint = [100,10*phi,20*phi];
         plot3DAxes(eyepoint, coi, va);
         plot3DGrid(eyepoint, coi, va);
 
