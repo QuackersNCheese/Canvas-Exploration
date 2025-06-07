@@ -11,7 +11,7 @@ function plotFractal(n) {
   let [x, y] = [Math.random() * canvas.width, Math.random() * canvas.height];
   //ctx.fillStyle = 'dodgerblue';
   
-  for(let i = 0; i <= 1000000; i++) {
+  for(let i = 0; i <= 50000000; i++) {
     pick = Math.floor(Math.random() * 8);
     [x, y] = [x+(points[pick][0] - x) * r, y+(points[pick][1] - y) * r];
     ctx.fillStyle = `hsla(${Math.round(360 * pick / 8)},100%,50%,1)`; 
