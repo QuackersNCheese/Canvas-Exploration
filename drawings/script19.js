@@ -72,11 +72,11 @@ function plot3DAxes(ep, coi, va) {
 
 let coi = [0,0,0];
 let va = 1 * Math.PI / 64;
-let eyepoint = [.5,-1,-1]//[-0.7,0.7, 0.3];
+let eyepoint = [-0.7,0.7, 0.3];
 let r = 2/3; // optimal r
 let a = 27/2;
-let points = [[-a,-a,0,1],[0,-a,0,1],[a,-a,0,1],[-a,0,0,1],[a,0,0,1],[-a,a,0,1],[0,a,0,1],[a,a,0,1],
-[-a,-a,a,1],[0,-a,a,1],[a,-a,a,1],[-a,0,a,1],[a,0,a,1],[-a,a,a,1],[0,a,a,1],[a,a,a,1],[0,0,a,1],[0,0,-a,1],
+let points = [[-a,-a,0,1],/*[0,-a,0,1],*/[a,-a,0,1],/*[-a,0,0,1],[a,0,0,1],*//*[0,a,0,1],*/[a,a,0,1],[-a,a,0,1],
+[-a,-a,a,1],[0,-a,a,1],[a,-a,a,1],[-a,0,a,1],[a,0,a,1],[-a,a,a,1],[0,a,a,1],[a,a,a,1],/*[0,0,a,1],[0,0,-a,1],*/
 [-a,-a,-a,1],[0,-a,-a,1],[a,-a,-a,1],[-a,0,-a,1],[a,0,-a,1],[-a,a,-a,1],[0,a,-a,1],[a,a,-a,1]];
 let [x, y, z] = [Math.random() * 300 - 150, Math.random() * 300 - 150, Math.random() * 300 - 150]; // random seed
 
@@ -87,14 +87,14 @@ async function animate() {
       ctx.fillStyle = 'black';
       ctx.fillRect(0,0,canvas.width,canvas.height);
       
-      //eyepoint = [0.5,phi,phi];  
+      eyepoint = [0.5,phi,phi];  
       
-      plot3DAxes(eyepoint, coi, va);
+      //plot3DAxes(eyepoint, coi, va);
       //plot3DGrid(eyepoint, coi, va);
-      for(let i = 0; i <= 60000000; i++) {
+      for(let i = 0; i <= 2000000; i++) {
         pick = Math.floor(Math.random() * points.length);
         [x, y, z] = [x+(points[pick][0] - x) * r, y+(points[pick][1] - y) * r, z+(points[pick][2] - z) * r];
-        ctx.fillStyle = `hsla(${Math.round(360 * pick / points.length)},100%,50%,0.01)`; 
+        ctx.fillStyle = `hsla(${Math.round(360 * pick / points.length)},100%,50%,0.5)`; 
         let [cols, rows] = plot3D([x, y, z, 1], eyepoint, coi, va);
         ctx.fillRect(rows, cols, 1, 1);
       }
