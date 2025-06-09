@@ -71,8 +71,8 @@ function plot3DAxes(ep, coi, va) {
 }
 
 let coi = [0,0,0];
-let va = 3 * Math.PI / 64;
-let eyepoint = [-0.7,0.7, 0.3];
+let va = 1 * Math.PI / 64;
+let eyepoint = [-1,0,0];//[-0.7,0.7, 0.3];
 let r = 2/3; // optimal r
 let a = 27/2;
 let points = [[-a,-a,0,1],/*[0,-a,0,1],*/[a,-a,0,1],/*[-a,0,0,1],[a,0,0,1],*//*[0,a,0,1],*/[a,a,0,1],[-a,a,0,1],
@@ -82,35 +82,21 @@ let [x, y, z] = [Math.random() * 300 - 150, Math.random() * 300 - 150, Math.rand
 
 async function animate() {
   while(true) {
-    for(let i = 0; i < 9; i++) {
-      for(let phi=0; phi< 1; phi += 0.01) {
-        await new Promise(resolve => setTimeout(resolve, 1))
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        switch(i) {
-          case 0: eyepoint = [1,phi,0]; break;
-          case 1: eyepoint = [1, 1, phi]; break;
-          case 2: eyepoint = [1, 1-phi, 1]; break;
-          case 3: eyepoint = [1-2*phi, 0, 1]; break;
-          case 4: eyepoint = [-1, 0, 1-2*phi]; break;
-          case 5: eyepoint = [-1, -phi, -1]; break;
-          case 6: eyepoint = [-1, -1, -1+phi]; break;
-          case 7: eyepoint = [-1+2*phi, -1, 0]; break;
-          case 8: eyepoint = [1, -1+phi, 0]; break;
-
-          default: eyepoint = [0,0,1];
-        }
-        
-        //ctx.fillStyle = 'hsla(210,100%, 56%,0.5)';
-        //plot3DAxes(eyepoint, coi, va);
-        plot3DGrid(eyepoint, coi, va);
-        for(let i = 0; i <= 100000; i++) {
-          pick = Math.floor(Math.random() * points.length);
-          [x, y, z] = [x+(points[pick][0] - x) * r, y+(points[pick][1] - y) * r, z+(points[pick][2] - z) * r];
-          ctx.fillStyle = `hsla(${Math.round(360 * pick / points.length)},100%,50%,1)`; 
-          let [cols, rows] = plot3D([x, y, z, 1], eyepoint, coi, va);
-          ctx.fillRect(rows, cols, 1, 1);
-        }
+    for(let phi=0; phi< 20; phi += 0.01) {
+      await new Promise(resolve => setTimeout(resolve, 1))
+      //ctx.fillStyle = 'black';
+      //ctx.fillRect(0,0,canvas.width,canvas.height);
+      
+      //eyepoint = [0.5,phi,phi];  
+      //ctx.fillStyle = 'hsla(210,100%, 56%,0.005)';
+      //plot3DAxes(eyepoint, coi, va);
+      //plot3DGrid(eyepoint, coi, va);
+      for(let i = 0; i <= 2000000; i++) {
+        pick = Math.floor(Math.random() * points.length);
+        [x, y, z] = [x+(points[pick][0] - x) * r, y+(points[pick][1] - y) * r, z+(points[pick][2] - z) * r];
+        ctx.fillStyle = `hsla(${Math.round(360 * pick / points.length)},100%,50%,0.005)`; 
+        let [cols, rows] = plot3D([x, y, z, 1], eyepoint, coi, va);
+        ctx.fillRect(rows, cols, 1, 1);
       }
     }
   }
