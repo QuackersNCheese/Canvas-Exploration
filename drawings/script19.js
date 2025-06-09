@@ -82,7 +82,7 @@ let [x, y, z] = [Math.random() * 300 - 150, Math.random() * 300 - 150, Math.rand
 
 async function animate() {
   while(true) {
-    for(let i = 0; i < 9; i++) {
+    for(let i = 0; i < 11; i++) {
       for(let phi=0; phi< 1; phi += 0.01) {
         await new Promise(resolve => setTimeout(resolve, 1))
         ctx.fillStyle = 'black';
@@ -97,6 +97,11 @@ async function animate() {
           case 6: eyepoint = [-1, -1, -1+phi]; break;
           case 7: eyepoint = [-1+2*phi, -1, 0]; break;
           case 8: eyepoint = [1, -1+phi, 0]; break;
+          case 9: eyepoint = [1,0,0];
+                  va = (3 * Math.PI / 64) * (1-phi);
+                  break;
+          case 10: va = (3 * Math.PI / 64) * phi;
+                  break; 
 
           default: eyepoint = [0,0,1];
         }
