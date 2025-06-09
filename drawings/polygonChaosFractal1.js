@@ -5,7 +5,7 @@ let x_mid = canvas.width / 2;
 let y_mid = canvas.height / 2;
 
 /***********************************************/
-function genVertices(num = 3, radius = 200) {
+function genVertices(num = 3, radius = canvas.width/2) {
   const angle = 2 * Math.PI / num;
   let [x, y] = [x_mid, y_mid];
   let points = [];
@@ -26,7 +26,7 @@ function plotFractal(n) {
   let [x, y] = [Math.random() * canvas.width, Math.random() * canvas.height];
   ctx.fillStyle = 'dodgerblue';
   
-  for(let i = 0; i <= 100000; i++) {
+  for(let i = 0; i <= 1000000; i++) {
     let pick = Math.floor(Math.random() * n);
     [x, y] = [x+(points[pick][0] - x) * r[n], y+(points[pick][1] - y) * r[n]];
     ctx.fillStyle = `hsla(${Math.round(360 * pick / n)},100%,50%,1)`; 
