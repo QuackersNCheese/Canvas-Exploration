@@ -98,9 +98,4 @@ async function paraboloid() {
   }
 }
 
-// plot3DAxes([1,0,1], [0,0,0], Math.PI/3);
-// plot3DGrid([1,0,1],[0,0,0], Math.PI/3);
-// for(let n = 0; n < 2* Math.PI; n += Math.PI/180) {
-//   plot3DParametric([t => t * Math.cos(n), t => t * Math.sin(n), t => t*t/64], [0, 100], 20, 'goldenrod',[1,0,1],[0,0,0],Math.PI/3);
-// }
 paraboloid();

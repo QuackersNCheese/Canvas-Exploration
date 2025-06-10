@@ -47,3 +47,10 @@ pre {
     border: 1px solid #666;
     border-radius: 0.25em;
 }
+#tutorial {
+    border-radius: 50%;
+    border: 2px solid dodgerblue;
+}
+#moon {
+    border: 2px solid goldenrod;
+}

@@ -22,8 +22,8 @@ function plotParametric(v, r, resolution = 100) {
 async function petals() {
   while(true) {  
     for(let n = 0 ; n < 360; n += 0.001) {
-      plotParametric([t=>200 * Math.cos(n*t) * Math.cos(t), 
-                      t=>200 * Math.cos(n*t) * Math.sin(t)], 
+      plotParametric([t=>x_mid * Math.cos(n*t) * Math.cos(t), 
+                      t=>y_mid * Math.cos(n*t) * Math.sin(t)], 
                       [-2 * Math.PI, 2 * Math.PI], 
                       1000);
       await new Promise(resolve => setTimeout(resolve, 1))
