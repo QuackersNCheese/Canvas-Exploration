@@ -82,25 +82,27 @@ let [x, y, z] = [Math.random() * 300 - 150, Math.random() * 300 - 150, Math.rand
 
 async function animate() {
   while(true) {
-    for(let i = 0; i < 11; i++) {
+    for(let j = 0; j < 13; j++) {
       for(let phi=0; phi< 1; phi += 0.01) {
         await new Promise(resolve => setTimeout(resolve, 1))
         ctx.fillStyle = 'black';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        switch(i) {
+        if(j < 6 || j > 7) ctx.fillRect(0,0,canvas.width,canvas.height);
+        switch(j) {
           case 0: eyepoint = [1,phi,0]; break;
           case 1: eyepoint = [1, 1, phi]; break;
           case 2: eyepoint = [1, 1-phi, 1]; break;
           case 3: eyepoint = [1-2*phi, 0, 1]; break;
           case 4: eyepoint = [-1, 0, 1-2*phi]; break;
           case 5: eyepoint = [-1, -phi, -1]; break;
-          case 6: eyepoint = [-1, -1, -1+phi]; break;
-          case 7: eyepoint = [-1+2*phi, -1, 0]; break;
-          case 8: eyepoint = [1, -1+phi, 0]; break;
-          case 9: eyepoint = [1,0,0];
+          case 6: eyepoint = [-1, -1, -1]; break;
+          case 7: eyepoint = [-1, -1, -1]; break;
+          case 8: eyepoint = [-1, -1, -1+phi]; break;
+          case 9: eyepoint = [-1+2*phi, -1, 0]; break;
+          case 10: eyepoint = [1, -1+phi, 0]; break;
+          case 11: eyepoint = [1,0,0];
                   va = (3 * Math.PI / 64) * (1-phi);
                   break;
-          case 10: va = (3 * Math.PI / 64) * phi;
+          case 12: va = (3 * Math.PI / 64) * phi;
                   break; 
 
           default: eyepoint = [0,0,1];
@@ -112,9 +114,14 @@ async function animate() {
         for(let i = 0; i <= 100000; i++) {
           pick = Math.floor(Math.random() * points.length);
           [x, y, z] = [x+(points[pick][0] - x) * r, y+(points[pick][1] - y) * r, z+(points[pick][2] - z) * r];
-          ctx.fillStyle = `hsla(${Math.round(360 * pick / points.length)},100%,50%,1)`; 
-          let [cols, rows] = plot3D([x, y, z, 1], eyepoint, coi, va);
-          ctx.fillRect(rows, cols, 1, 1);
+          if(x+y+z > 0) {
+            ctx.fillStyle = `hsla(${Math.round(360 * pick / points.length)},100%,50%,1)`; 
+            //if(x+y+z < 0.1) ctx.fillStyle = 'rgba(255,255,255,1';
+            let [cols, rows] = plot3D([x, y, z, 1], eyepoint, coi, va);
+            if((j < 6 || j > 7) || ((j == 6 || j == 7) && x+y+z > 0 && x+y+z < 0.2))
+               ctx.fillRect(rows, cols, 1, 1);
+            
+          }
         }
       }
     }

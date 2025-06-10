@@ -34,4 +34,4 @@ function plotFractal(n) {
   }
 }
 
-plotFractal(3);
+plotFractal(8);
