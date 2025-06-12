@@ -2,7 +2,7 @@ a {
     color: #ff6600;
     text-decoration: none;
 }
-ul li a:hover {
+li a:hover {
     text-shadow: 1px 1px 2px rgb(175, 17, 175);
 }
 
