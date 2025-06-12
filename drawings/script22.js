@@ -1,95 +1,27 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-
-let x_mid = canvas.width / 2;
-let y_mid = canvas.height / 2;
       
-function drawAxes(color = 'rgba(255, 255, 255, 0.5)') {
-  ctx.setLineDash([2, 3]);
-  ctx.strokeStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(0, y_mid);
-  ctx.lineTo(canvas.width, y_mid);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x_mid, 0);
-  ctx.lineTo(x_mid, canvas.height);
-  ctx.stroke();
-}
-
-function drawGrid(t_div = 50, v_div = 50, color = 'rgba(255, 255, 255, 0.5)') {
-  ctx.setLineDash([1, 4]);
-  ctx.strokeStyle = color;
-
-  // center out from axes guarantees axis/grid alignment
-  for(let i = 0; i < x_mid; i += t_div) {
-    ctx.beginPath();
-    ctx.moveTo(x_mid + i, 0);
-    ctx.lineTo(x_mid + i, canvas.height);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x_mid - i, 0);
-    ctx.lineTo(x_mid - i, canvas.height);
-    ctx.stroke();
-  }
-  for(let i = 0; i < y_mid; i += v_div) {
-    ctx.beginPath();
-    ctx.moveTo(0, y_mid + i);
-    ctx.lineTo(canvas.width, y_mid + i);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, y_mid - i);
-    ctx.lineTo(canvas.width, y_mid - i);
-    ctx.stroke();
-  }
-}
-
-/***************************************************
- f is an anonymous call back function, so to input a 
- function like f(x) = 3x+1, use:  x => 3 * x + 1
- ***************************************************/
-function plotFunc(f, color='hsl(190, 100%, 60%)', tol = 4) {
-  for(let x = 0; x <= canvas.width; x += 1) {
-    for(let y = 0; y <= canvas.height; y += 1) {
-      // horizontal shift x, vertical shift and reflect y to center
-      let func = y_mid - f(x-x_mid);  // function to plot
-      if(y > func - tol && y < func + tol) {  // tolerance
-        ctx.fillStyle = color;
-        ctx.globalAlpha = 0.75;
-        ctx.fillRect(x, y, 1, 1);
+function iterateMandel() {
+  let range = 2.25; // distance top to bottom on the complex plane
+  let x_center = -0.5, y_center = 0;  // center of plot on complex plane
+  let xm = canvas.width / 2, ym = canvas.height / 2;  // midpoints
+  let t = 100;  // iteration counting variable
+  let C = [], T = []; // complex rotate and shift vector
+  let div = canvas.height / range;  // pixels per complex unit
+  
+  for(let y = 0; y < canvas.height; y++) {
+    for(let x = 0; x < canvas.width; x++) {
+      C = [x_center + (x - xm) / div, y_center + (ym - y) / div]; // convert pixel to complex number
+      T = [...C]; // copy to save
+      for(t = 100; t > 0; t--) {
+        C=[C[0] * C[0] - C[1] * C[1] + T[0], 2 * C[0] * C[1] + T[1]]; // rotate and shift
+        if(C[0] * C[0] + C[1] * C[1] > 4) break;  // check for escape
       }
+      // plot pixel with color that indicates speed of escape
+      ctx.fillStyle=(t == 0 ? `hsla(240, 100%, 0%, 1)` : `hsla(270, 100%, ${100-t}%, 1)`);
+      ctx.fillRect(x, y, 1, 1);
     }
   }
 }
 
-/****************************************************
-  think of v(t) as a vector valued function
-  v(t) = [x(t), y(t)], r for range of t: [a, b]    
-  so a circle of radius 10 would be input as:
-  [t => 10 * Math.cos(t), t => 10 * Math.sin(t)], [0, 2 * Math.PI]
- ****************************************************/
-function plotParametric(v, r, resolution = 100, color = 'hsl(190, 100%, 60%)') {
-  ctx.fillStyle = color;
-  [x_func, y_func] = v;
-  for(let t = r[0]; t <= r[1]; t += (r[1] - r[0]) / resolution) {
-    // horizontal shift x, vertical shift and reflect y to center
-    ctx.fillRect(x_mid + x_func(t), y_mid - y_func(t), 1, 1);
-  }
-}
-
-async function petals() {
-  for(let n = 0 ; n < 50; n += 0.001) {
-    plotParametric([t=>200*Math.cos(n*t)*Math.cos(t), t=>200*Math.cos(n*t)*Math.sin(t)], [-2 * Math.PI, 2 * Math.PI], 1000, 'dodgerblue');
-    await new Promise(resolve => setTimeout(resolve, 1))
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-  }
-}
-
-function iterateMandel () {
-    let range=2.25;
-    let iter_scale=1;
-    let x_center=-1;
-    let y_center=0;
-    
-}
+iterateMandel();
